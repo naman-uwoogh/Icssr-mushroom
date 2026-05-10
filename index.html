@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sustainable Mushroom Cultivation for Women Empowerment</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --cream: #F7F3ED;
+    --earth: #8B6914;
+    --forest: #2D5016;
+    --forest-light: #3D6B20;
+    --mushroom: #C4956A;
+    --mushroom-light: #E8C9A8;
+    --text: #1C1C1A;
+    --text-soft: #5C5748;
+    --white: #FFFFFF;
+    --accent: #E07B39;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(247,243,237,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(139,105,20,0.15);
+    padding: 0 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px; color: var(--forest);
+    max-width: 280px; line-height: 1.3;
+  }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--text-soft);
+    font-size: 14px; font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--forest); }
+
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, #2D5016 0%, #3D6B20 45%, #8B6914 100%);
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: flex-start;
+    padding: 120px 80px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle at 70% 50%, rgba(196,149,106,0.15) 0%, transparent 60%),
+                      radial-gradient(circle at 20% 80%, rgba(247,243,237,0.05) 0%, transparent 40%);
+  }
+  .hero-tag {
+    background: rgba(247,243,237,0.15);
+    border: 1px solid rgba(247,243,237,0.3);
+    color: var(--mushroom-light);
+    font-size: 12px; font-weight: 500; letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px; border-radius: 20px;
+    margin-bottom: 28px; display: inline-block;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 6vw, 76px);
+    color: var(--cream); line-height: 1.1;
+    max-width: 700px; margin-bottom: 24px;
+    position: relative;
+  }
+  .hero h1 em {
+    font-style: italic; color: var(--mushroom-light);
+  }
+  .hero p {
+    color: rgba(247,243,237,0.8);
+    font-size: 18px; max-width: 520px;
+    margin-bottom: 48px; line-height: 1.8;
+  }
+  .hero-stats {
+    display: flex; gap: 48px; position: relative;
+  }
+  .stat-item { text-align: left; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px; color: var(--mushroom-light);
+    line-height: 1; display: block;
+  }
+  .stat-label {
+    font-size: 13px; color: rgba(247,243,237,0.65);
+    text-transform: uppercase; letter-spacing: 1px;
+    margin-top: 4px; display: block;
+  }
+  .hero-badge {
+    position: absolute; bottom: 48px; right: 80px;
+    background: rgba(247,243,237,0.1);
+    border: 1px solid rgba(247,243,237,0.2);
+    border-radius: 12px; padding: 20px 28px;
+    text-align: center;
+  }
+  .hero-badge img { width: 60px; margin-bottom: 8px; }
+  .hero-badge p {
+    font-size: 11px; color: rgba(247,243,237,0.7);
+    margin: 0; text-transform: uppercase; letter-spacing: 1px;
+  }
+  .hero-badge strong {
+    display: block; color: var(--cream);
+    font-size: 14px; margin-bottom: 4px;
+  }
+
+  section { padding: 96px 80px; }
+
+  .section-tag {
+    font-size: 11px; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 2.5px;
+    color: var(--earth); margin-bottom: 16px;
+    display: block;
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 1.2; margin-bottom: 20px;
+    color: var(--text);
+  }
+  .lead {
+    font-size: 18px; color: var(--text-soft);
+    max-width: 640px; line-height: 1.8;
+    margin-bottom: 56px;
+  }
+
+  /* ── ABOUT ── */
+  .about { background: var(--white); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: start;
+  }
+  .about-card {
+    background: var(--cream);
+    border-radius: 16px; padding: 36px;
+    border-left: 4px solid var(--forest);
+  }
+  .about-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; margin-bottom: 12px;
+    color: var(--forest);
+  }
+  .about-card p { color: var(--text-soft); font-size: 15px; }
+  .about-cards { display: flex; flex-direction: column; gap: 20px; }
+
+  /* ── PROBLEM ── */
+  .problem { background: var(--forest); }
+  .problem .section-tag { color: var(--mushroom-light); }
+  .problem h2 { color: var(--cream); }
+  .problem .lead { color: rgba(247,243,237,0.75); }
+  .problem-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .problem-card {
+    background: rgba(247,243,237,0.08);
+    border: 1px solid rgba(247,243,237,0.15);
+    border-radius: 16px; padding: 32px;
+    transition: background 0.3s;
+  }
+  .problem-card:hover { background: rgba(247,243,237,0.13); }
+  .problem-icon {
+    width: 48px; height: 48px;
+    background: rgba(196,149,106,0.2);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; margin-bottom: 20px;
+  }
+  .problem-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; color: var(--cream);
+    margin-bottom: 10px;
+  }
+  .problem-card p { color: rgba(247,243,237,0.65); font-size: 14px; }
+
+  .findings { background: var(--cream); }
+  .findings-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 24px; margin-bottom: 56px;
+  }
+  .finding-card {
+    background: var(--white);
+    border-radius: 16px; padding: 32px 24px;
+    text-align: center;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .finding-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  }
+  .finding-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px; color: var(--forest);
+    line-height: 1; display: block; margin-bottom: 8px;
+  }
+  .finding-card p {
+    font-size: 13px; color: var(--text-soft);
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  .quote-block {
+    background: var(--forest);
+    border-radius: 20px; padding: 48px 56px;
+    position: relative;
+  }
+  .quote-block::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 120px; color: rgba(247,243,237,0.1);
+    position: absolute; top: -20px; left: 40px;
+    line-height: 1;
+  }
+  .quote-block blockquote {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-style: italic;
+    color: var(--cream); line-height: 1.7;
+    margin-bottom: 20px; position: relative;
+  }
+  .quote-block cite {
+    font-size: 13px; color: var(--mushroom-light);
+    text-transform: uppercase; letter-spacing: 1.5px;
+    font-style: normal;
+  }
+
+  /* ── THE KIT ── */
+  .kit { background: var(--white); }
+  .kit-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 64px; align-items: center;
+  }
+  .kit-visual {
+    background: linear-gradient(135deg, var(--forest) 0%, var(--earth) 100%);
+    border-radius: 24px; padding: 48px;
+    text-align: center; aspect-ratio: 1;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .kit-visual::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(247,243,237,0.08), transparent 60%);
+  }
+  .kit-icon { font-size: 80px; margin-bottom: 20px; position: relative; }
+  .kit-visual h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px; color: var(--cream);
+    margin-bottom: 8px; position: relative;
+  }
+  .kit-visual p {
+    color: rgba(247,243,237,0.7);
+    font-size: 14px; position: relative;
+  }
+  .kit-features { list-style: none; }
+  .kit-features li {
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    display: flex; align-items: flex-start; gap: 16px;
+  }
+  .kit-features li:last-child { border-bottom: none; }
+  .feat-dot {
+    width: 8px; height: 8px;
+    background: var(--forest); border-radius: 50%;
+    margin-top: 8px; flex-shrink: 0;
+  }
+  .feat-text strong {
+    display: block; font-size: 15px; font-weight: 500;
+    color: var(--text); margin-bottom: 2px;
+  }
+  .feat-text span { font-size: 13px; color: var(--text-soft); }
+  .cost-banner {
+    background: var(--cream); border-radius: 16px;
+    padding: 28px 32px; margin-top: 32px;
+    display: flex; align-items: center;
+    justify-content: space-between;
+    border: 1px solid rgba(139,105,20,0.2);
+  }
+  .cost-banner p { font-size: 14px; color: var(--text-soft); }
+  .cost-banner strong {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; color: var(--forest);
+    display: block;
+  }
+  .cost-compare {
+    font-size: 12px; color: var(--text-soft);
+    text-decoration: line-through;
+  }
+
+  /* ── STATES ── */
+  .states { background: var(--mushroom-light); }
+  .states-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .state-card {
+    background: var(--white); border-radius: 16px;
+    padding: 28px 24px; text-align: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .state-flag { font-size: 40px; margin-bottom: 12px; display: block; }
+  .state-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; color: var(--forest);
+    margin-bottom: 6px;
+  }
+  .state-card p { font-size: 13px; color: var(--text-soft); }
+
+  /* ── RESEARCH ── */
+  .research { background: var(--white); }
+  .research-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .research-card {
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 16px; padding: 32px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .research-card:hover {
+    border-color: var(--forest);
+    box-shadow: 0 4px 20px rgba(45,80,22,0.1);
+  }
+  .research-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px; color: var(--earth);
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 16px; display: block;
+  }
+  .research-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px; margin-bottom: 12px;
+    color: var(--text); line-height: 1.3;
+  }
+  .research-card p { font-size: 14px; color: var(--text-soft); }
+  .status-badge {
+    display: inline-block; margin-top: 16px;
+    padding: 4px 12px; border-radius: 20px;
+    font-size: 11px; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  .status-ongoing {
+    background: rgba(45,80,22,0.1); color: var(--forest);
+  }
+  .status-planned {
+    background: rgba(139,105,20,0.1); color: var(--earth);
+  }
+
+  /* ── TEAM ── */
+  .team { background: var(--cream); }
+  .team-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .team-card {
+    background: var(--white); border-radius: 16px;
+    padding: 36px 28px; text-align: center;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  }
+  .team-avatar {
+    width: 72px; height: 72px;
+    background: linear-gradient(135deg, var(--forest), var(--earth));
+    border-radius: 50%; margin: 0 auto 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; color: var(--cream);
+  }
+  .team-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; margin-bottom: 4px; color: var(--text);
+  }
+  .team-card p { font-size: 13px; color: var(--text-soft); }
+  .team-role {
+    font-size: 12px; color: var(--earth);
+    text-transform: uppercase; letter-spacing: 1px;
+    margin-top: 8px; display: block;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--forest);
+    padding: 64px 80px 40px;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr;
+    gap: 64px; margin-bottom: 48px;
+  }
+  .footer-brand h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; color: var(--cream);
+    margin-bottom: 12px;
+  }
+  .footer-brand p {
+    font-size: 14px; color: rgba(247,243,237,0.6);
+    line-height: 1.7; max-width: 320px;
+  }
+  .footer-links h4 {
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 2px; color: var(--mushroom-light);
+    margin-bottom: 20px;
+  }
+  .footer-links ul { list-style: none; }
+  .footer-links li { margin-bottom: 10px; }
+  .footer-links a {
+    font-size: 14px; color: rgba(247,243,237,0.6);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--cream); }
+  .footer-bottom {
+    border-top: 1px solid rgba(247,243,237,0.1);
+    padding-top: 24px;
+    display: flex; justify-content: space-between;
+    align-items: center;
+  }
+  .footer-bottom p {
+    font-size: 13px; color: rgba(247,243,237,0.4);
+  }
+  .icssr-credit {
+    font-size: 12px; color: rgba(247,243,237,0.5);
+    text-align: right;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero h1, .hero p, .hero-stats, .hero-tag {
+    animation: fadeUp 0.7s ease both;
+  }
+  .hero-tag  { animation-delay: 0.1s; }
+  .hero h1   { animation-delay: 0.25s; }
+  .hero p    { animation-delay: 0.4s; }
+  .hero-stats{ animation-delay: 0.55s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    section { padding: 64px 24px; }
+    .hero { padding: 100px 24px 64px; }
+    .hero-stats { gap: 28px; flex-wrap: wrap; }
+    .hero-badge { display: none; }
+    .about-grid, .kit-grid { grid-template-columns: 1fr; gap: 40px; }
+    .problem-grid, .findings-grid, .states-grid,
+    .research-grid, .team-grid { grid-template-columns: 1fr 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+    .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+  }
+  @media (max-width: 600px) {
+    .problem-grid, .findings-grid, .states-grid,
+    .research-grid, .team-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Sustainable Mushroom Cultivation<br>for Women Empowerment</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#findings">Field Findings</a></li>
+    <li><a href="#kit">The Kit</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <span class="hero-tag">ICSSR Funded Research Project</span>
+  <h1>Growing <em>Livelihoods,</em><br>Empowering Women</h1>
+  <p>A social research project bringing affordable IoT-enabled mushroom cultivation technology to rural women across North India.</p>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <span class="stat-num">500+</span>
+      <span class="stat-label">Women Engaged</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">4</span>
+      <span class="stat-label">States Covered</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">~₹1,500</span>
+      <span class="stat-label">Kit Cost</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">2026</span>
+      <span class="stat-label">Ongoing</span>
+    </div>
+  </div>
+  <div class="hero-badge">
+    <strong>Funded by ICSSR</strong>
+    <p>Indian Council of<br>Social Science Research</p>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <span class="section-tag">About the Project</span>
+  <h2>Bringing Literature,<br>Technology and Livelihood</h2>
+  <p class="lead">This ICSSR-funded study investigates the potential of affordable IoT based monitoring system to enable sustainable mushroom cultivation as a livelihood option for rural women who currently have no awareness or access of it.</p>
+  <div class="about-grid">
+    <div>
+      <div class="about-cards">
+        <div class="about-card">
+          <h3>The Problem</h3>
+          <p>Mushroom cultivation offers significant livelihood potential, yet the majority of rural women in our study area had never encountered it. Commercial IoT monitoring tools that improve yield reliability cost ₹5,000–20,000, which is entirely inaccessible to smallholder farmers.</p>
+        </div>
+        <div class="about-card">
+          <h3>Our Approach</h3>
+          <p>We first went to the field to understand the reality faced by women farmers before designing any technology. This approach ensures our solution addresses real barriers rather than assumed ones.</p>
+        </div>
+        <div class="about-card">
+          <h3>The Solution</h3>
+          <p>A plug-and-play IoT monitoring kit costing around ₹1,500 that requires no technical knowledge to set up. Any woman with a basic smartphone can connect it via a simple captive portal — no IT support, no technical training needed.</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div style="background: var(--forest); border-radius: 24px; padding: 48px; color: var(--cream);">
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 26px; margin-bottom: 24px; color: var(--mushroom-light);">Project Objectives</h3>
+        <ol style="padding-left: 20px; display: flex; flex-direction: column; gap: 18px;">
+          <li style="font-size: 15px; color: rgba(247,243,237,0.85); line-height: 1.6;">Assess baseline awareness and feasibility of mushroom cultivation among rural women in Delhi, Haryana, Uttar Pradesh and Rajasthan</li>
+          <li style="font-size: 15px; color: rgba(247,243,237,0.85); line-height: 1.6;">Design and validate an affordable IoT monitoring kit appropriate for non-technical rural users</li>
+          <li style="font-size: 15px; color: rgba(247,243,237,0.85); line-height: 1.6;">Identify socioeconomic barriers to technology adoption and propose contextually appropriate solutions</li>
+          <li style="font-size: 15px; color: rgba(247,243,237,0.85); line-height: 1.6;">Establish a scalable deployment model suitable for Self Help Groups and cooperative settings</li>
+          <li style="font-size: 15px; color: rgba(247,243,237,0.85); line-height: 1.6;">Contribute to the evidence base for technology-enabled livelihood interventions targeting rural women in India</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+  <span class="section-tag">Why This Matters</span>
+  <h2 style="color: var(--cream);">The Challenges<br>We Set Out to Solve</h2>
+  <p class="lead">Our field interactions across four states revealed a consistent picture of unmet potential — women eager for income opportunities but facing compounding barriers.</p>
+  <div class="problem-grid">
+    <div class="problem-card">
+      <h3>Zero Awareness</h3>
+      <p>The majority of women we met had no knowledge that mushrooms could be cultivated commercially at home. The knowledge gap predates any technology barrier.</p>
+    </div>
+    <div class="problem-card">
+      <h3>Cost Exclusion</h3>
+      <p>Commercial mushroom monitoring systems cost ₹15,000–50,000. For a household earning ₹8,000–12,000 per month, this is completely inaccessible without subsidy.</p>
+    </div>
+    <div class="problem-card">
+      <h3>Digital Literacy Gap</h3>
+      <p>Most existing IoT agricultural tools require significant technical setup. Women with basic smartphone access cannot deploy them without external technical support.</p>
+    </div>
+    <div class="problem-card">
+      <h3>Connectivity Limits</h3>
+      <p>Rural areas across our study states have variable internet access. A solution that fails when the WiFi router changes is not a reliable livelihood tool.</p>
+    </div>
+    <div class="problem-card">
+      <h3>Research Gap</h3>
+      <p>A systematic review of literature found no published study addressing IoT mushroom cultivation in the context of women's empowerment or rural Indian deployment.</p>
+    </div>
+    <div class="problem-card">
+      <h3>Policy Disconnect</h3>
+      <p>NABARD and state government schemes promote mushroom cultivation for SHGs but lack low-cost monitoring tools to support consistent, reliable yields at scale.</p>
+    </div>
+  </div>
+</section>
+
+<section class="findings" id="findings">
+  <span class="section-tag">Field Findings</span>
+  <h2>What We Found<br>on the Ground</h2>
+  <p class="lead">Between 2023–2024 our team conducted field interactions with over 500 women across Delhi, Haryana, Uttar Pradesh and Rajasthan. Here is what we found.</p>
+  <div class="findings-grid">
+    <div class="finding-card">
+      <span class="finding-num">500+</span>
+      <p>Women interacted with across 4 states</p>
+    </div>
+    <div class="finding-card">
+      <span class="finding-num" style="color: var(--accent);">~0%</span>
+      <p>Had prior awareness of commercial mushroom cultivation</p>
+    </div>
+    <div class="finding-card">
+      <span class="finding-num">4</span>
+      <p>States — Delhi, Haryana, UP, Rajasthan</p>
+    </div>
+    <div class="finding-card">
+      <span class="finding-num" style="color: var(--forest);">High</span>
+      <p>Interest expressed when cultivation potential was explained</p>
+    </div>
+  </div>
+  <div class="quote-block">
+    <blockquote>"Field interactions conducted during this study revealed zero baseline awareness of commercial mushroom cultivation among participants — underscoring that the barrier is not technology resistance but fundamental knowledge access."</blockquote>
+    <cite>— Field Research Finding, ICSSR Project, 2026</cite>
+  </div>
+</section>
+
+<!-- THE KIT -->
+<section class="kit" id="kit">
+  <span class="section-tag">The Technology</span>
+  <h2>A Kit Built Around<br>Real Constraints</h2>
+  <p class="lead">Every design decision was made in direct response to what we heard in the field. The result is a monitoring kit that works for the people who are in need of it.</p>
+  <div class="kit-grid">
+    <div class="kit-visual">
+      <div class="kit-icon">🍄</div>
+      <h3>IoT Monitoring Kit</h3>
+      <p>Temperature · Humidity · CO₂</p>
+    </div>
+    <div>
+      <ul class="kit-features">
+        <li>
+          <div class="feat-dot"></div>
+          <div class="feat-text">
+            <strong>Plug and play WiFi setup</strong>
+            <span>No technical knowledge needed. Phone connects to kit hotspot, user picks their WiFi network. Done.</span>
+          </div>
+        </li>
+        <li>
+          <div class="feat-dot"></div>
+          <div class="feat-text">
+            <strong>Real-time sensor monitoring</strong>
+            <span>Temperature, humidity and CO₂ monitored continuously. Alerts sent to Android app when conditions go outside safe range.</span>
+          </div>
+        </li>
+        <li>
+          <div class="feat-dot"></div>
+          <div class="feat-text">
+            <strong>Automated relay control</strong>
+            <span>Humidifier activates automatically when humidity drops. No manual intervention required during grow cycles.</span>
+          </div>
+        </li>
+        <li>
+          <div class="feat-dot"></div>
+          <div class="feat-text">
+            <strong>Data recording and export</strong>
+            <span>All sensor readings stored and exportable as CSV for farmer records, loan applications or cooperative reporting.</span>
+          </div>
+        </li>
+        <li>
+          <div class="feat-dot"></div>
+          <div class="feat-text">
+            <strong>Fuzzy logic control (in development)</strong>
+            <span>Moving beyond simple on/off thresholds to smooth, intelligent environmental management directly on the device.</span>
+          </div>
+        </li>
+      </ul>
+      <div class="cost-banner">
+        <div>
+          <p>Kit cost per unit</p>
+          <strong>₹1,500</strong>
+        </div>
+        <div style="text-align: right;">
+          <p class="cost-compare">Commercial equivalent: ₹15,000–50,000</p>
+          <p style="font-size: 13px; color: var(--forest); font-weight: 500;">Up to 97% more affordable</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATES -->
+<section class="states" id="states">
+  <span class="section-tag">Geographic Reach</span>
+  <h2>Four States,<br>One Mission</h2>
+  <p class="lead">Our field work spans the Hindi heartland — regions with significant rural women populations and strong potential for mushroom cultivation as a supplementary livelihood.</p>
+  <div class="states-grid">
+    <div class="state-card">
+      <span class="state-flag">🏙️</span>
+      <h3>Delhi</h3>
+      <p>Peri-urban communities, SHG networks, urban-rural interface populations</p>
+    </div>
+    <div class="state-card">
+      <span class="state-flag">🌾</span>
+      <h3>Haryana</h3>
+      <p>Agricultural communities, paddy straw availability, strong cooperative tradition</p>
+    </div>
+    <div class="state-card">
+      <span class="state-flag">🌿</span>
+      <h3>Uttar Pradesh</h3>
+      <p>Largest rural women population in study, diverse agro-climatic zones</p>
+    </div>
+    <div class="state-card">
+      <span class="state-flag">🏜️</span>
+      <h3>Rajasthan</h3>
+      <p>Challenging climate conditions, testing kit resilience, women entrepreneurship focus</p>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section class="research" id="research">
+  <span class="section-tag">Research Outputs</span>
+  <h2>Publications and<br>Ongoing Work</h2>
+  <p class="lead">This project is generating multiple research outputs across social science and technical domains — all published open access at zero cost.</p>
+  <div class="research-grid">
+    <div class="research-card">
+      <span class="research-num">Paper 01</span>
+      <h3>Awareness and Adoption Barriers Among Rural Women</h3>
+      <p>Quantitative and qualitative analysis of baseline awareness, feasibility indicators and adoption barriers among 500+ women across four states.</p>
+      <span class="status-badge status-ongoing">In preparation</span>
+    </div>
+    <div class="research-card">
+      <span class="research-num">Paper 02</span>
+      <h3>Traditional vs IoT-based Cultivation: A Systematic Review</h3>
+      <p>Systematic review of global and Indian literature covering traditional methods, IoT solutions, cost analysis and identification of research gaps.</p>
+      <span class="status-badge status-ongoing">In preparation</span>
+    </div>
+    <div class="research-card">
+      <span class="research-num">Paper 03</span>
+      <h3>Design of a Low-Cost IoT Kit for Rural Non-Technical Users</h3>
+      <p>Technical validation of the ₹1,500 kit — sensor accuracy, MQTT connectivity, Android app performance and plug-and-play deployment model.</p>
+      <span class="status-badge status-planned">Planned</span>
+    </div>
+  </div>
+</section>
+  
+<section style="background: var(--white); padding: 96px 80px;">
+  <span class="section-tag">From the Field</span>
+  <h2>Voices from<br>the Ground</h2>
+  <p class="lead">Photographs from our field interactions across Delhi, Haryana, Uttar Pradesh and Rajasthan (2025–2026).</p>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 16px;">
+    <div style="position: relative; overflow: hidden; border-radius: 16px; aspect-ratio: 4/3; grid-column: 1; grid-row: 1;">
+      <img src="field1.jpg" alt="Field visit — women interaction session" style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease;"/>
+      <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 20px 24px; background: linear-gradient(to top, rgba(45,80,22,0.85), transparent);">
+        <p style="color: var(--cream); font-size: 13px; margin: 0;">Community interaction · Haryana</p>
+      </div>
+    </div>
+    <div style="position: relative; overflow: hidden; border-radius: 16px; aspect-ratio: 4/3; grid-column: 2; grid-row: 1;">
+      <img src="field2.jpg" alt="Field visit — rural women group" style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease;"/>
+      <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 20px 24px; background: linear-gradient(to top, rgba(45,80,22,0.85), transparent);">
+        <p style="color: var(--cream); font-size: 13px; margin: 0;">Awareness session · Uttar Pradesh</p>
+      </div>
+    </div>
+    <div style="position: relative; overflow: hidden; border-radius: 16px; aspect-ratio: 16/9; grid-column: 1 / 2; grid-row: 2;">
+      <img src="field3.jpg" alt="Field visit — village setting" style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease;"/>
+      <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 20px 24px; background: linear-gradient(to top, rgba(45,80,22,0.85), transparent);">
+        <p style="color: var(--cream); font-size: 13px; margin: 0;">Focus group discussion · Rajasthan</p>
+      </div>
+    </div>
+    <div style="position: relative; overflow: hidden; border-radius: 16px; aspect-ratio: 16/9; grid-column: 2 / 3; grid-row: 2;">
+      <img src="field4.jpg" alt="Field visit — participant engagement" style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease;"/>
+      <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 20px 24px; background: linear-gradient(to top, rgba(45,80,22,0.85), transparent);">
+        <p style="color: var(--cream); font-size: 13px; margin: 0;">Participatory session · Delhi</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="team" id="team">
+  <span class="section-tag">The Team</span>
+  <h2>Researchers Behind<br>This Work</h2>
+  <p class="lead">Update this section with your actual team details — principal investigator, co-investigators and research assistants.</p>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-avatar">PI</div>
+      <h3>Principal Investigator</h3>
+      <p>Dr. Anju</p>
+      <span class="team-role">Motilal Nehru College(Evening)</span>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">Co</div>
+      <h3>Co-Investigator</h3>
+      <p>Dr. Purnima Anand</p>
+      <span class="team-role">Bhaskaracharya College of Applied Sciences</span>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">Co</div>
+      <h3>Co-Investigator</h3>
+      <p>Dr.Shailja Singh</p>
+      <span class="team-role">Bhaskaracharya College of Applied Sciences</span>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">RA</div>
+      <h3>Research Assistant</h3>
+      <p>Naman Prasad</p>
+      <span class="team-role">Bhaskaracharya College of Applied Sciences</span>
+    </div>
+    <div class="team-card">
+  <div class="team-avatar">FI</div>
+      <h3>Field Investigator</h3>
+      <p>Kamal Rathore</p>
+      <span class="team-role">Motilal Nehru College(Evening)</span>
+    </div>
+  
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>Sustainable Mushroom Cultivation for Women Empowerment</h3>
+      <p>This study is supported by the Indian Council of Social Science Research (ICSSR). The views expressed are those of the researchers and do not necessarily reflect the position of ICSSR.</p>
+      <p style="margin-top: 16px; font-size: 13px; color: rgba(247,243,237,0.4);">ICSSR Project · 2023–2025</p>
+    </div>
+    <div class="footer-links">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#findings">Field Findings</a></li>
+        <li><a href="#kit">The Kit</a></li>
+        <li><a href="#states">Coverage</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#team">Team</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#">Android App</a></li>
+        <li><a href="#">Field Survey Form</a></li>
+        <li><a href="+919873576552">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 ICSSR Research Project. Open access — share freely with attribution.</p>
+    <p class="icssr-credit">Funded by the Indian Council of Social Science Research</p>
+  </div>
+</footer>
+
+</body>
+</html>
