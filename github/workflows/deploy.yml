@@ -26,10 +26,10 @@ jobs:
           token: ${{ secrets.PRIVATE_REPO_TOKEN }}
           path: private-images
       
-      - name: Copy images to public folder
+            - name: Copy images to public folder
         run: |
           mkdir -p ./images
-          cp -r private-images/images/* ./images/ 2>/dev/null || echo "No images copied"
+          cp -r private-images/images/* ./images/ 2>/dev/null || echo "no images copied"
           ls -la ./images
       
       - name: Setup Pages
