@@ -1,0 +1,45 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Icssr-mushroom repo
+        uses: actions/checkout@v4
+      
+      - name: Checkout private images repo
+        uses: actions/checkout@v4
+        with:
+          repository: naman-uwooghI/icssr-mushroom-images
+          token: ${{ secrets.PRIVATE_REPO_TOKEN }}
+          path: private-images
+      
+      - name: Copy images to public folder
+        run: |
+          mkdir -p ./images
+          cp -r private-images/images/* ./images/ 2>/dev/null || echo "No images copied"
+          ls -la ./images
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './'
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
