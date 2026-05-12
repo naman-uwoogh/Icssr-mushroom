@@ -1,4 +1,4 @@
-<style>
+
 :root {
     --cream: #F7F3ED;
     --earth: #8B6914;
@@ -838,4 +838,3 @@ footer {
     .states-grid { grid-template-columns: 1fr 1fr; }
     .hero-stats { grid-template-columns: 1fr 1fr; }
 }
-</style>
