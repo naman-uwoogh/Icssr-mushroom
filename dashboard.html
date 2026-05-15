@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Live Dashboard — IoT Monitor</title>
+<link rel="stylesheet" href="style.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/4.3.7/mqtt.min.js"></script>
+<style>
+    body { background: #F7F3ED; font-family: -apple-system, sans-serif; }
+
+    .dash-nav {
+        background: rgba(247,243,237,0.95);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(139,105,20,0.15);
+        padding: 16px 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky; top: 0; z-index: 100;
+    }
+    .dash-nav h1 {
+        font-size: 17px;
+        color: #2D5016;
+        font-weight: 600;
+    }
+    .status-dot {
+        width: 8px; height: 8px;
+        border-radius: 50%;
+        background: #ccc;
+        display: inline-block;
+        margin-right: 8px;
+    }
+    .status-dot.connected { background: #2D5016; }
+    .status-dot.error     { background: #CC0000; }
+
+    .login-screen {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+    }
+    .login-card {
+        background: white;
+        border-radius: 20px;
+        padding: 48px 40px;
+        width: 100%;
+        max-width: 420px;
+        box-shadow: 0 4px 32px rgba(0,0,0,0.08);
+    }
+    .login-card h2 {
+        font-size: 24px;
+        color: #2D5016;
+        margin-bottom: 8px;
+        font-weight: 700;
+    }
+    .login-card p {
+        font-size: 14px;
+        color: #5C5748;
+        margin-bottom: 32px;
+    }
+    .field {
+        margin-bottom: 16px;
+    }
+    .field label {
+        display: block;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #5C5748;
+        margin-bottom: 6px;
+    }
+    .field input {
+        width: 100%;
+        padding: 12px 16px;
+        border: 1px solid rgba(0,0,0,0.12);
+        border-radius: 10px;
+        font-size: 15px;
+        outline: none;
+        transition: border-color 0.2s;
+        font-family: inherit;
+    }
+    .field input:focus {
+        border-color: #2D5016;
+    }
+    .btn-login {
+        width: 100%;
+        padding: 14px;
+        background: #2D5016;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 8px;
+        transition: background 0.2s;
+        font-family: inherit;
+    }
+    .btn-login:hover { background: #3D6B20; }
+    .error-msg {
+        color: #CC0000;
+        font-size: 13px;
+        margin-top: 12px;
+        display: none;
+    }
+
+    .dashboard { display: none; padding: 32px; }
+
+    .kit-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 20px;
+        margin-top: 24px;
+    }
+    .kit-card {
+        background: white;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+        border-top: 4px solid #2D5016;
+    }
+    .kit-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+    .kit-id {
+        font-size: 13px;
+        font-weight: 600;
+        color: #2D5016;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    .kit-time {
+        font-size: 11px;
+        color: #8E8E93;
+    }
+    .sensor-row {
+        display: flex;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid #F0F0F0;
+    }
+    .sensor-row:last-child { border-bottom: none; }
+    .sensor-icon { font-size: 20px; width: 32px; }
+    .sensor-label {
+        font-size: 12px;
+        color: #5C5748;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        flex: 1;
+        margin-left: 8px;
+    }
+    .sensor-value {
+        font-size: 20px;
+        font-weight: 700;
+        color: #1C1C1A;
+        font-variant-numeric: tabular-nums;
+    }
+    .sensor-unit {
+        font-size: 12px;
+        color: #8E8E93;
+        margin-left: 4px;
+        font-weight: 400;
+    }
+    .alert-badge {
+        display: inline-block;
+        background: #FFF0EC;
+        color: #E07B39;
+        font-size: 10px;
+        font-weight: 600;
+        padding: 2px 8px;
+        border-radius: 10px;
+        margin-left: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .no-kits {
+        text-align: center;
+        padding: 80px 24px;
+        color: #5C5748;
+    }
+    .no-kits p { font-size: 15px; margin-top: 8px; }
+
+    .dash-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 8px;
+    }
+    .dash-header h2 {
+        font-size: 22px;
+        font-weight: 700;
+        color: #1C1C1A;
+    }
+    .kit-count {
+        font-size: 13px;
+        color: #5C5748;
+        background: #F0F0F0;
+        padding: 4px 12px;
+        border-radius: 20px;
+    }
+    .btn-logout {
+        background: none;
+        border: 1px solid rgba(0,0,0,0.12);
+        border-radius: 8px;
+        padding: 6px 14px;
+        font-size: 13px;
+        cursor: pointer;
+        color: #5C5748;
+        font-family: inherit;
+        transition: all 0.2s;
+    }
+    .btn-logout:hover {
+        border-color: #CC0000;
+        color: #CC0000;
+    }
+
+    @media (max-width: 600px) {
+        .dashboard { padding: 16px; }
+        .kit-grid { grid-template-columns: 1fr; }
+        .login-card { padding: 32px 24px; }
+    }
+</style>
+</head>
+<body>
+
+<div class="login-screen" id="loginScreen">
+    <div class="login-card">
+        <h2>IoT Dashboard</h2>
+        <p>ICSSR Mushroom Cultivation Project — Researcher Access</p>
+        <div class="field">
+            <label>Username</label>
+            <input type="text" id="inputUser" placeholder="Enter username"/>
+        </div>
+        <div class="field">
+            <label>Password</label>
+            <input type="password" id="inputPass" placeholder="Enter password"
+                   onkeydown="if(event.key==='Enter') doLogin()"/>
+        </div>
+        <button class="btn-login" onclick="doLogin()">Sign In</button>
+        <p class="error-msg" id="errorMsg">Incorrect username or password</p>
+    </div>
+</div>
+
+<div id="dashboardScreen" style="display:none">
+    <div class="dash-nav">
+        <h1>Live Sensor Dashboard</h1>
+        <div style="display:flex; align-items:center; gap:16px;">
+            <span id="connStatus">
+                <span class="status-dot" id="statusDot"></span>
+                <span id="statusText" style="font-size:13px; color:#5C5748;">Connecting...</span>
+            </span>
+            <button class="btn-logout" onclick="doLogout()">Sign out</button>
+        </div>
+    </div>
+
+    <div class="dashboard" id="dashboard">
+        <div class="dash-header">
+            <h2>All Kits</h2>
+            <span class="kit-count" id="kitCount">0 kits online</span>
+        </div>
+        <p style="font-size:14px; color:#5C5748; margin-bottom:4px;">
+            Live data from all deployed IoT kits. Updates automatically.
+        </p>
+        <div class="kit-grid" id="kitGrid">
+            <div class="no-kits" id="noKits">
+                <p>Waiting for kit data...</p>
+                <p>Make sure your kits are powered on and connected.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Login credentials add here
+const USERS = {
+    "researcher": "icssr2024",
+    "admin":      "mushroom@123"
+};
+
+// ── MQTT broker credentials ────────────────────────────────
+const BROKER_HOST = "https://e3fa51b765194bef98fdc9d1fdb42de6.s1.eu.hivemq.cloud";
+const BROKER_PORT = 8884;
+const MQTT_USER   = "admin123";
+const MQTT_PASS   = "admin123";
+const TOPIC       = "home/sensors/#";
+// ───────────────────────────────────────────────────────────
+
+let mqttClient = null;
+let kits = {};
+
+function doLogin() {
+    const user = document.getElementById("inputUser").value.trim();
+    const pass = document.getElementById("inputPass").value.trim();
+
+    if (USERS[user] && USERS[user] === pass) {
+        document.getElementById("loginScreen").style.display  = "none";
+        document.getElementById("dashboardScreen").style.display = "block";
+        document.getElementById("dashboard").style.display = "block";
+        sessionStorage.setItem("loggedIn", user);
+        connectMQTT();
+    } else {
+        document.getElementById("errorMsg").style.display = "block";
+    }
+}
+
+function doLogout() {
+    sessionStorage.removeItem("loggedIn");
+    if (mqttClient) mqttClient.end();
+    document.getElementById("dashboardScreen").style.display = "none";
+    document.getElementById("loginScreen").style.display = "flex";
+    document.getElementById("inputPass").value = "";
+    kits = {};
+}
+
+// Auto login if session exists
+window.onload = function() {
+    const user = sessionStorage.getItem("loggedIn");
+    if (user) {
+        document.getElementById("loginScreen").style.display  = "none";
+        document.getElementById("dashboardScreen").style.display = "block";
+        document.getElementById("dashboard").style.display = "block";
+        connectMQTT();
+    }
+};
+
+function connectMQTT() {
+    const clientId = "dashboard-" + Math.random().toString(16).substr(2, 8);
+
+    mqttClient = mqtt.connect("wss://" + BROKER_HOST + ":" + BROKER_PORT + "/mqtt", {
+        clientId:  clientId,
+        username:  MQTT_USER,
+        password:  MQTT_PASS,
+        clean:     true,
+        reconnectPeriod: 3000
+    });
+
+    mqttClient.on("connect", function() {
+        setStatus("connected", "Connected");
+        mqttClient.subscribe(TOPIC);
+    });
+
+    mqttClient.on("error", function(err) {
+        setStatus("error", "Connection error");
+        console.error(err);
+    });
+
+    mqttClient.on("offline", function() {
+        setStatus("", "Reconnecting...");
+    });
+
+    mqttClient.on("message", function(topic, message) {
+        try {
+            const data    = JSON.parse(message.toString());
+            const parts   = topic.split("/");
+            const kitId   = parts[2] || "Unknown";
+            updateKit(kitId, data);
+        } catch(e) {
+            console.error("JSON parse error:", e);
+        }
+    });
+}
+
+function setStatus(state, text) {
+    const dot  = document.getElementById("statusDot");
+    const txt  = document.getElementById("statusText");
+    dot.className = "status-dot " + state;
+    txt.textContent = text;
+}
+
+function updateKit(kitId, data) {
+    kits[kitId] = {
+        temp: data.temp ?? data.temperature ?? null,
+        hum:  data.hum  ?? data.humidity    ?? null,
+        co2:  data.ppm  ?? data.CO2         ?? null,
+        time: new Date().toLocaleTimeString()
+    };
+
+    renderKits();
+}
+
+function renderKits() {
+    const grid   = document.getElementById("kitGrid");
+    const noKits = document.getElementById("noKits");
+    const count  = Object.keys(kits).length;
+
+    document.getElementById("kitCount").textContent =
+        count + (count === 1 ? " kit online" : " kits online");
+
+    if (count === 0) {
+        noKits.style.display = "block";
+        return;
+    }
+    noKits.style.display = "none";
+
+    // Update or create card for each kit
+    for (const [kitId, d] of Object.entries(kits)) {
+        let card = document.getElementById("card-" + kitId);
+        if (!card) {
+            card = document.createElement("div");
+            card.className = "kit-card";
+            card.id = "card-" + kitId;
+            grid.appendChild(card);
+        }
+
+        const tempAlert = d.temp !== null && d.temp > 30;
+        const humAlert  = d.hum  !== null && d.hum  < 70;
+        const co2Alert  = d.co2  !== null && d.co2  > 1200;
+
+        card.innerHTML = `
+            <div class="kit-header">
+                <span class="kit-id">${kitId}</span>
+                <span class="kit-time">Updated ${d.time}</span>
+            </div>
+            <div class="sensor-row">
+                <span class="sensor-icon">T</span>
+                <span class="sensor-label">Temperature</span>
+                <span class="sensor-value">
+                    ${d.temp !== null ? d.temp.toFixed(1) : "--"}
+                    <span class="sensor-unit">°C</span>
+                    ${tempAlert ? '<span class="alert-badge">High</span>' : ""}
+                </span>
+            </div>
+            <div class="sensor-row">
+                <span class="sensor-icon">H</span>
+                <span class="sensor-label">Humidity</span>
+                <span class="sensor-value">
+                    ${d.hum !== null ? d.hum.toFixed(1) : "--"}
+                    <span class="sensor-unit">%</span>
+                    ${humAlert ? '<span class="alert-badge">Low</span>' : ""}
+                </span>
+            </div>
+            <div class="sensor-row">
+                <span class="sensor-icon">CO2</span>
+                <span class="sensor-label">CO₂</span>
+                <span class="sensor-value">
+                    ${co2Alert ? "Sensor Error" :
+                      d.co2 !== null ? Math.round(d.co2) : "--"}
+                    ${!co2Alert ? '<span class="sensor-unit">ppm</span>' : ""}
+                    ${co2Alert ? '<span class="alert-badge">Error</span>' : ""}
+                </span>
+            </div>
+        `;
+    }
+}
+</script>
+</body>
+</html>
